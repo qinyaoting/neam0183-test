@@ -22,9 +22,12 @@ public class CodecManager extends Observable implements Observer {
 
         AbstractNmeaCodec codec = codecs.get(type);
         if (codec == null) {
-            String name = "com.frankwu.nmea." + type.substring(0, 1) + type.substring(1).toLowerCase() + "NmeaCodec";
+            String name = "com.xyz.nmea." + type.substring(0, 1) + type.substring(1).toLowerCase() + "NmeaCodec";
             codec = (AbstractNmeaCodec) Class.forName(name).newInstance();
+
+            // codec是被观察者,codec 数据变化时,CodecManager是观察者,会收到消息,update
             codec.addObserver(this);
+            // 生成的codec会放到map里,以后用到codec,从map里取
             codecs.put(type, codec);
         }
 
