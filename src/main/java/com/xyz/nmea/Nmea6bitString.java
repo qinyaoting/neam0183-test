@@ -1,5 +1,6 @@
 package com.xyz.nmea;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 
 /**
@@ -13,7 +14,7 @@ public class Nmea6bitString {
 
     public Nmea6bitString(String str) {
         Preconditions.checkNotNull(str);
-        final byte[] input = str.getBytes();
+        final byte[] input = str.getBytes(Charsets.UTF_8);
         bytes = new byte[input.length];
         for (int i = 0; i < input.length; ++i) {
             int b = (int)input[i];

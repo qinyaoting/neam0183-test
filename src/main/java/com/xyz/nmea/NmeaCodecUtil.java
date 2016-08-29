@@ -1,5 +1,6 @@
 package com.xyz.nmea;
 
+import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 
 /**
@@ -23,7 +24,7 @@ public class NmeaCodecUtil {
     public static String calcCheckSum(String content) {
         Preconditions.checkNotNull(content);
         int sum = 0;
-        for (byte b: content.getBytes()) {
+        for (byte b: content.getBytes(Charsets.UTF_8)) {
             sum ^= b;
         }
         return NmeaConst.CHECKSUM_SEP + String.format("%02X", sum);
