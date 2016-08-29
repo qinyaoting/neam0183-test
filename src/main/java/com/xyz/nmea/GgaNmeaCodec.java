@@ -1,5 +1,6 @@
 package com.xyz.nmea;
 
+import com.google.common.base.Preconditions;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
@@ -15,8 +16,8 @@ public class GgaNmeaCodec extends AbstractNmeaCodec {
 
     public void decode(String content) {
         // 判断类型是否正确
-        if (!NmeaMessageValidator.isValid(content, NmeaConst.MSG_TYPE_GGA))
-            throw new IllegalArgumentException();
+        Preconditions.checkArgument(NmeaMessageValidator.isValid(content, NmeaConst.MSG_TYPE_GGA));
+
         // 去掉首尾没用的信息
         String rawContent = NmeaCodecUtil.makeRawContent(content);
         Tokenizer tokenizer = new Tokenizer(rawContent, NmeaConst.FIELD_SEP);
@@ -43,8 +44,7 @@ public class GgaNmeaCodec extends AbstractNmeaCodec {
     @Override
     public List<String> encode(AbstractNmeaObject obj) {
 
-        if (!obj.getObjType().endsWith(NmeaConst.MSG_TYPE_GGA))
-            throw new IllegalArgumentException("Invalid type");
+        Preconditions.checkArgument(obj.getObjType().endsWith(NmeaConst.MSG_TYPE_GGA));
         GgaNmeaObject object = (GgaNmeaObject) obj;
         StringBuilder sb = new StringBuilder();
         sb.append(object.getObjType()).append(NmeaConst.FIELD_SEP);
