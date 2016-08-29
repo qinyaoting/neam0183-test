@@ -1,7 +1,8 @@
 package com.xyz.nmea;
 
 import com.google.common.base.Preconditions;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  */
 public class GgaNmeaCodec extends AbstractNmeaCodec {
 
-    private final static Logger logger = Logger.getLogger(GgaNmeaCodec.class);
+    private final Logger logger = LoggerFactory.getLogger(GgaNmeaCodec.class);
 
 
     public void decode(String content) {
@@ -36,7 +37,7 @@ public class GgaNmeaCodec extends AbstractNmeaCodec {
         object.setUnitOfGeoidSeparation(tokenizer.nextToken());
         object.setAgeOfDifferentialGpsDataRecord(tokenizer.nextToken());
         object.setReferenceStationID(tokenizer.nextToken());
-        logger.debug(object);
+        logger.debug("{}", object);
         setChanged();
         notifyObservers(object);
     }

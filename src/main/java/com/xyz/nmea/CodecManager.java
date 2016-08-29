@@ -1,7 +1,8 @@
 package com.xyz.nmea;
 
 import com.google.common.base.Preconditions;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.Observer;
  * Created by chin on 8/22/16.
  */
 public class CodecManager extends Observable implements Observer {
-    private final static Logger logger = Logger.getLogger(CodecManager.class);
+    //private final static Logger logger = Logger.getLogger(CodecManager.class);
+    private final Logger logger = LoggerFactory.getLogger(CodecManager.class);
     private HashMap<String, AbstractNmeaCodec> codecs = new HashMap<>();
     private Buffer buffer = new Buffer();
 
